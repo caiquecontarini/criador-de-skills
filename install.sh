@@ -40,6 +40,7 @@ install_files() {
   download "$REPO/SKILL.md"                        "$base_dir/SKILL.md"
   download "$REPO/references/skill-anatomy.md"     "$base_dir/references/skill-anatomy.md"
   download "$REPO/references/guia-refinamento.md"  "$base_dir/references/guia-refinamento.md"
+  download "$REPO/evals/evals.json"                "$base_dir/evals/evals.json"
 }
 
 # ── Claude Code ─────────────────────────────────────────────────────────────

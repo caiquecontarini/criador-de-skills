@@ -16,6 +16,7 @@ Quero instalar a skill-creator no meu Claude Code. Siga os passos abaixo:
 2. Criar a estrutura de pastas da skill
    - Criar: ~/.claude/skills/criar-skill/
    - Criar: ~/.claude/skills/criar-skill/references/
+   - Criar: ~/.claude/skills/criar-skill/evals/
 
 3. Baixar os arquivos do repositório okjpg/skill-creator
    - Opção A (com git): git clone https://github.com/okjpg/skill-creator /tmp/skill-creator-tmp
@@ -23,16 +24,19 @@ Quero instalar a skill-creator no meu Claude Code. Siga os passos abaixo:
      curl -s https://raw.githubusercontent.com/okjpg/skill-creator/main/SKILL.md -o ~/.claude/skills/criar-skill/SKILL.md
      curl -s https://raw.githubusercontent.com/okjpg/skill-creator/main/references/skill-anatomy.md -o ~/.claude/skills/criar-skill/references/skill-anatomy.md
      curl -s https://raw.githubusercontent.com/okjpg/skill-creator/main/references/guia-refinamento.md -o ~/.claude/skills/criar-skill/references/guia-refinamento.md
+     curl -s https://raw.githubusercontent.com/okjpg/skill-creator/main/evals/evals.json -o ~/.claude/skills/criar-skill/evals/evals.json
 
 4. Se usou Opção A (git clone), copiar os arquivos para o lugar certo:
    cp /tmp/skill-creator-tmp/SKILL.md ~/.claude/skills/criar-skill/SKILL.md
    cp /tmp/skill-creator-tmp/references/skill-anatomy.md ~/.claude/skills/criar-skill/references/
    cp /tmp/skill-creator-tmp/references/guia-refinamento.md ~/.claude/skills/criar-skill/references/
+   cp /tmp/skill-creator-tmp/evals/evals.json ~/.claude/skills/criar-skill/evals/
    rm -rf /tmp/skill-creator-tmp
 
 5. Verificar que os arquivos estão no lugar:
    ls ~/.claude/skills/criar-skill/
    ls ~/.claude/skills/criar-skill/references/
+   ls ~/.claude/skills/criar-skill/evals/
 
 6. Confirmar a instalação rodando:
    cat ~/.claude/skills/criar-skill/SKILL.md | head -5

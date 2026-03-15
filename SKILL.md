@@ -153,7 +153,7 @@ Executar TODOS os 10 checks antes de mostrar o SKILL.md gerado. Não pular nenhu
 Após QA aprovado:
 
 1. Mostrar o SKILL.md completo.
-2. Exibir: "QA: X/9 ✓" e lista dos itens que poderiam melhorar (se houver).
+2. Exibir: "QA: X/10 ✓" e lista dos itens que poderiam melhorar (se houver).
 3. Perguntar: "Quer ajustar algo antes do deploy?"
 4. Aguardar aprovação explícita antes de prosseguir.
 
