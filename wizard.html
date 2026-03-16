@@ -352,6 +352,7 @@
       <button class="template-btn" onclick="loadTemplate('relatorio')">Gerar Relatorio</button>
       <button class="template-btn" onclick="loadTemplate('linkedin')">Post LinkedIn</button>
       <button class="template-btn" onclick="loadTemplate('nf')">Emitir Nota Fiscal</button>
+      <button class="template-btn" onclick="window.location.href='examples.html'" style="border-style:solid;color:var(--accent)">Ver todos (+24)</button>
     </div>
   </div>
 
@@ -853,6 +854,63 @@ function showToast(msg) {
   toast.classList.add('show');
   setTimeout(() => toast.classList.remove('show'), 2000);
 }
+
+// Load template from URL param (from examples.html)
+(function() {
+  const params = new URLSearchParams(window.location.search);
+  const tpl = params.get('template');
+  if (tpl) {
+    try {
+      const s = JSON.parse(decodeURIComponent(tpl));
+      document.getElementById('skillName').value = s.name || '';
+      document.getElementById('skillPurpose').value = s.purpose || s.desc || '';
+      document.getElementById('skillInput').value = s.input || '';
+      document.getElementById('skillOutput').value = s.output || '';
+
+      if (s.triggers && s.triggers.length) {
+        const tl = document.getElementById('triggersList');
+        tl.innerHTML = '';
+        s.triggers.forEach(t => {
+          const row = document.createElement('div');
+          row.className = 'list-row';
+          row.innerHTML = '<input type="text" value="' + t + '" /><button class="btn-remove" onclick="removeRow(this)">x</button>';
+          tl.appendChild(row);
+        });
+      }
+      if (s.negatives && s.negatives.length) {
+        const nl = document.getElementById('negativesList');
+        nl.innerHTML = '';
+        s.negatives.forEach(n => {
+          const row = document.createElement('div');
+          row.className = 'list-row';
+          row.innerHTML = '<input type="text" value="' + n + '" /><button class="btn-remove" onclick="removeRow(this)">x</button>';
+          nl.appendChild(row);
+        });
+      }
+      if (s.examples && s.examples.length) {
+        const el = document.getElementById('examplesList');
+        el.innerHTML = '';
+        s.examples.forEach((ex, i) => {
+          const pair = document.createElement('div');
+          pair.className = 'eval-pair';
+          pair.innerHTML = '<div class="eval-label">Exemplo ' + (i+1) + '</div><div class="field"><label>Input</label><textarea rows="2" class="eval-input">' + (ex.input||'') + '</textarea></div><div class="field"><label>Output esperado</label><textarea rows="3" class="eval-output">' + (ex.output||'') + '</textarea></div>';
+          el.appendChild(pair);
+        });
+      }
+      if (s.edgeCases && s.edgeCases.length) {
+        const ec = document.getElementById('edgeCasesList');
+        ec.innerHTML = '';
+        s.edgeCases.forEach(e => {
+          const field = document.createElement('div');
+          field.className = 'field';
+          field.innerHTML = '<div class="list-row"><input type="text" value="' + e + '" /><button class="btn-remove" onclick="removeRow(this)">x</button></div>';
+          ec.appendChild(field);
+        });
+      }
+      showToast('Template "' + (s.name||'') + '" carregado');
+    } catch(e) { /* ignore bad params */ }
+  }
+})();
 </script>
 </body>
 </html>

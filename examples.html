@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exemplos de Skills — Pixel Educacao</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #0d1117; --surface: #161b22; --border: #30363d;
+    --accent: #ff751f; --accent-light: #ff9a52;
+    --accent-bg: rgba(255,117,31,0.08); --accent-border: rgba(255,117,31,0.2);
+    --text: #f0f6fc; --text-body: #b1bac4; --text-muted: #7d8590;
+    --green: #3fb950; --blue: #79c0ff; --purple: #d2a8ff; --yellow: #e3b341;
+  }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: 'Inter', -apple-system, sans-serif;
+    line-height: 1.6; -webkit-font-smoothing: antialiased;
+  }
+
+  .glow-tr {
+    position: fixed; top: -150px; right: -150px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(255,117,31,0.1) 0%, transparent 70%);
+    pointer-events: none; z-index: 0;
+  }
+
+  .container {
+    position: relative; z-index: 1;
+    max-width: 960px; margin: 0 auto; padding: 40px 24px 60px;
+  }
+
+  /* Header */
+  .header { margin-bottom: 32px; }
+  .header-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+  .badge {
+    display: inline-block; background: var(--accent-bg);
+    border: 1px solid var(--accent-border); border-radius: 100px;
+    color: var(--accent); font-size: 12px; font-weight: 600;
+    letter-spacing: 1px; text-transform: uppercase; padding: 6px 16px;
+  }
+  .back-link {
+    color: var(--text-muted); font-size: 13px; font-weight: 500;
+    text-decoration: none; transition: color 0.2s;
+  }
+  .back-link:hover { color: var(--accent); }
+  .header h1 { font-size: 28px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 4px; }
+  .header h1 span { color: var(--accent); }
+  .header p { color: var(--text-body); font-size: 15px; }
+
+  /* Search + Filter */
+  .controls { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+  .search-box {
+    flex: 1; min-width: 200px; background: var(--surface);
+    border: 1px solid var(--border); border-radius: 10px;
+    color: var(--text); font-family: 'Inter', sans-serif;
+    font-size: 14px; padding: 12px 16px; outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-box:focus { border-color: var(--accent); }
+  .search-box::placeholder { color: #484f58; }
+
+  /* Category tabs */
+  .categories { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 24px; }
+  .cat-btn {
+    padding: 8px 16px; border-radius: 8px;
+    border: 1px solid var(--border); background: var(--surface);
+    color: var(--text-muted); font-family: 'Inter', sans-serif;
+    font-size: 13px; font-weight: 500;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .cat-btn:hover { border-color: var(--accent); color: var(--text-body); }
+  .cat-btn.active { background: var(--accent-bg); border-color: var(--accent); color: var(--accent); }
+
+  /* Grid */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+
+  .skill-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 14px; padding: 20px 22px;
+    cursor: pointer; transition: all 0.2s; position: relative;
+  }
+  .skill-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+
+  .skill-card .card-cat {
+    font-size: 11px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.5px; margin-bottom: 10px;
+  }
+  .skill-card .card-cat.conteudo { color: var(--accent); }
+  .skill-card .card-cat.produtividade { color: var(--green); }
+  .skill-card .card-cat.financeiro { color: var(--yellow); }
+  .skill-card .card-cat.dev { color: var(--purple); }
+  .skill-card .card-cat.atendimento { color: var(--blue); }
+  .skill-card .card-cat.marketing { color: #f97583; }
+
+  .skill-card h3 {
+    font-size: 15px; font-weight: 700; color: var(--text);
+    margin-bottom: 6px; font-family: 'Fira Code', monospace;
+  }
+  .skill-card p {
+    font-size: 13px; color: var(--text-muted); line-height: 1.5;
+    margin-bottom: 12px;
+  }
+  .skill-card .card-io {
+    font-size: 12px; color: var(--text-muted); line-height: 1.6;
+  }
+  .skill-card .card-io span {
+    color: var(--text-body); font-weight: 500;
+  }
+
+  .skill-card .use-btn {
+    display: inline-block; margin-top: 12px;
+    padding: 6px 14px; border-radius: 6px;
+    background: var(--accent-bg); border: 1px solid var(--accent-border);
+    color: var(--accent); font-size: 12px; font-weight: 600;
+    transition: all 0.2s;
+  }
+  .skill-card:hover .use-btn { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  /* Count */
+  .count { color: var(--text-muted); font-size: 13px; margin-bottom: 16px; }
+
+  /* Empty */
+  .empty {
+    text-align: center; padding: 60px 20px;
+    color: var(--text-muted); font-size: 15px;
+  }
+
+  .footer-text {
+    text-align: center; margin-top: 48px;
+    color: #484f58; font-size: 12px;
+  }
+  .footer-text a { color: var(--text-muted); text-decoration: none; }
+  .footer-text a:hover { color: var(--accent); }
+
+  @media (max-width: 640px) {
+    .container { padding: 24px 16px 40px; }
+    .header h1 { font-size: 22px; }
+    .grid { grid-template-columns: 1fr; }
+    .header-top { flex-direction: column; align-items: flex-start; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+<div class="glow-tr"></div>
+<div class="container">
+
+  <div class="header">
+    <div class="header-top">
+      <div class="badge">Biblioteca de Skills</div>
+      <a href="wizard.html" class="back-link">&#8592; Voltar ao Wizard</a>
+    </div>
+    <h1>Exemplos de <span>Skills</span></h1>
+    <p>Explore, aprenda e use como base para criar as suas</p>
+  </div>
+
+  <input type="text" class="search-box" id="search" placeholder="Buscar skill..." oninput="filterSkills()" />
+
+  <div class="categories" id="categories">
+    <button class="cat-btn active" onclick="setCategory('all')">Todas</button>
+    <button class="cat-btn" onclick="setCategory('conteudo')">Conteudo</button>
+    <button class="cat-btn" onclick="setCategory('marketing')">Marketing</button>
+    <button class="cat-btn" onclick="setCategory('produtividade')">Produtividade</button>
+    <button class="cat-btn" onclick="setCategory('financeiro')">Financeiro</button>
+    <button class="cat-btn" onclick="setCategory('atendimento')">Atendimento</button>
+    <button class="cat-btn" onclick="setCategory('dev')">Dev</button>
+  </div>
+
+  <div class="count" id="count"></div>
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="empty" style="display:none">Nenhuma skill encontrada.</div>
+
+  <div class="footer-text">
+    <a href="https://github.com/okjpg/skill-creator" target="_blank">github.com/okjpg/skill-creator</a>
+  </div>
+</div>
+
+<script>
+const SKILLS = [
+  // ─── Conteudo ─────────────────────────────────────────
+  { cat: 'conteudo', name: 'post-linkedin', desc: 'Gera posts LinkedIn a partir de tema, insight ou experiencia', input: 'Tema ou insight', output: 'Post 1000-1500 chars com hook, desenvolvimento e CTA',
+    triggers: ['cria post linkedin','escreve post','post sobre esse tema','linkedin post','transforma isso num post'],
+    negatives: ['NAO usar para artigos longos','NAO usar para newsletter'],
+    examples: [{input:'Post sobre como validei meu micro-saas em 2 semanas gastando R$ 0',output:'Post com hook numerico, contexto pessoal, lista com setas, insight final e CTA'},{input:'post linkedin (sem tema)',output:'Pergunta: Sobre o que voce quer escrever?'}],
+    edgeCases: ['Se tema vago: pedir contexto','Se post > 3000 chars: sugerir cortar'] },
+  { cat: 'conteudo', name: 'responder-instagram', desc: 'Sugere respostas para comentarios do Instagram', input: 'Comentario colado', output: '3 sugestoes de resposta: direta, com pergunta, com humor',
+    triggers: ['responde esse comentario','sugere resposta pro Instagram','como respondo isso','me ajuda a responder no insta','resposta pra esse comentario'],
+    negatives: ['NAO usar para DMs','NAO usar para criar posts/reels','NAO usar para moderar comentarios'],
+    examples: [{input:'Cara, esse conteudo mudou minha visao. Obrigado!',output:'3 opcoes: 1) Fico feliz que ajudou! 2) O que mais te impactou? 3) Comentarios assim fazem o dia'},{input:'GANHE R$ 5.000 POR DIA clique no link',output:'Identifica spam. Sugere ignorar ou deletar'}],
+    edgeCases: ['Se vazio: pedir o comentario','Se spam: sugerir deletar','Se outro idioma: perguntar idioma'] },
+  { cat: 'conteudo', name: 'roteiro-youtube', desc: 'Cria roteiro estruturado para video YouTube', input: 'Tema, duracao e pontos principais', output: 'Roteiro com hook, apresentacao, blocos, fechamento e CTA',
+    triggers: ['cria roteiro youtube','roteiro pro video','monta roteiro','script do video','roteiro de X minutos'],
+    negatives: ['NAO usar para reels/shorts','NAO usar para podcast','NAO usar para editar videos'],
+    examples: [{input:'Video de 10min sobre os 3 modelos de pricing de micro-saas',output:'Roteiro: hook (30s), apresentacao (30s), modelo 1 (3min), modelo 2 (3min), modelo 3 (3min), fechamento + CTA (1min)'},{input:'roteiro (sem tema)',output:'Pergunta: Qual o tema e a duracao estimada?'}],
+    edgeCases: ['Se duracao nao especificada: sugerir 8-12min','Se tema muito amplo: sugerir focar em 1 angulo'] },
+  { cat: 'conteudo', name: 'newsletter-semanal', desc: 'Gera newsletter a partir de tema ou transcricao de video', input: 'Tema, dados ou transcricao', output: 'Newsletter ~2000 palavras com titulo, abertura, secoes e fechamento',
+    triggers: ['escreve newsletter','gera newsletter','newsletter sobre','transforma em newsletter','monta a edicao'],
+    negatives: ['NAO usar para email marketing','NAO usar para sequencias de email','NAO usar para comunicados internos'],
+    examples: [{input:'Newsletter sobre o case do Rodrigo Santos com Vencify: saiu de 0 a R$ 50k MRR em 8 meses',output:'Newsletter com titulo + gancho numerico, historia de abertura, estrategia, resultados, licoes'},{input:'(transcricao de video colada)',output:'Extrai estrutura da transcricao e formata como newsletter'}],
+    edgeCases: ['Se dados insuficientes: pedir mais contexto','Se transcricao > 10k palavras: resumir antes'] },
+  { cat: 'conteudo', name: 'thread-twitter', desc: 'Transforma insight ou artigo em thread para X/Twitter', input: 'Tema, artigo ou post existente', output: 'Thread 5-12 tweets com hook, desenvolvimento e CTA',
+    triggers: ['cria thread','thread sobre','transforma em thread','thread twitter','monta uma thread'],
+    negatives: ['NAO usar para tweet unico','NAO usar para DMs','NAO usar para outras redes'],
+    examples: [{input:'Thread sobre por que bootstrap > venture capital para micro-saas',output:'Thread 8 tweets: hook provocativo, 5 argumentos com dados, conclusao, CTA'},{input:'(post linkedin colado)',output:'Adapta o post para formato thread mantendo a essencia'}],
+    edgeCases: ['Se > 15 tweets: sugerir cortar','Se tweet > 280 chars: quebrar'] },
+  { cat: 'conteudo', name: 'legendas-reels', desc: 'Gera legendas e descricoes para Reels/TikTok', input: 'Tema do reel ou transcricao', output: 'Legenda curta + hashtags + descricao',
+    triggers: ['legenda pro reel','descricao do reel','legendas instagram','caption pro video','hashtags pro reel'],
+    negatives: ['NAO usar para criar o roteiro do video','NAO usar para editar video'],
+    examples: [{input:'Reel sobre 3 ferramentas de vibe coding que uso todo dia',output:'Legenda: "Essas 3 ferramentas mudaram minha produtividade" + 10 hashtags relevantes'},{input:'(transcricao do reel colada)',output:'Extrai o gancho principal e gera legenda alinhada'}],
+    edgeCases: ['Se tema generico: pedir especificidade','Se legenda > 2200 chars: encurtar'] },
+  { cat: 'conteudo', name: 'repurpose-conteudo', desc: 'Transforma 1 conteudo em multiplos formatos', input: 'Conteudo original (video, post, newsletter)', output: 'Versoes para LinkedIn, Instagram, Twitter, Newsletter',
+    triggers: ['repurpose esse conteudo','distribui pras redes','transforma em outros formatos','expande esse post','waterfall de conteudo'],
+    negatives: ['NAO usar para criar conteudo do zero','NAO usar para traduzir'],
+    examples: [{input:'(post linkedin colado com 1200 chars)',output:'Gera: 1 thread Twitter, 1 script de reel 60s, 1 carrossel 8 slides, 1 paragrafo de newsletter'},{input:'link do youtube',output:'Busca transcricao, mapeia angulos, gera formatos'}],
+    edgeCases: ['Se conteudo curto demais: avisar que pode nao render todos os formatos'] },
+
+  // ─── Marketing ────────────────────────────────────────
+  { cat: 'marketing', name: 'copy-landing-page', desc: 'Gera copy para landing page de produto ou servico', input: 'Produto, publico-alvo e proposta de valor', output: 'Hero, features, social proof, FAQ e CTA sections',
+    triggers: ['copy da landing','escreve landing page','texto da pagina de vendas','copy pro site','landing page copy'],
+    negatives: ['NAO usar para codigo HTML','NAO usar para design visual','NAO usar para email marketing'],
+    examples: [{input:'Landing page pro Metricaas: SaaS de metricas financeiras para micro-saas. Publico: founders que querem acompanhar MRR, Churn, LTV',output:'Hero com headline + sub, 4 features com beneficio, secao de social proof, FAQ 5 perguntas, CTA'},{input:'landing page (sem produto)',output:'Pergunta: Qual produto? Quem e o publico? Qual o principal beneficio?'}],
+    edgeCases: ['Se produto complexo: sugerir dividir em secoes menores','Se sem social proof: sugerir depoimentos ficticios como placeholder'] },
+  { cat: 'marketing', name: 'analisar-concorrente', desc: 'Analisa site/produto de concorrente e gera relatorio', input: 'URL ou descricao do concorrente', output: 'Relatorio com pricing, features, posicionamento e oportunidades',
+    triggers: ['analisa esse concorrente','pesquisa concorrente','benchmark desse produto','compara com concorrente','analise competitiva'],
+    negatives: ['NAO usar para copiar features','NAO usar para criar produto clone'],
+    examples: [{input:'Analisa o ChartMogul como concorrente do Metricaas',output:'Relatorio: pricing (tiers), features principais, publico-alvo, gaps que Metricaas pode explorar'},{input:'(URL do site)',output:'Acessa o site, extrai informacoes publicas, monta analise'}],
+    edgeCases: ['Se site bloqueado: analisar com informacoes publicas disponiveis','Se concorrente muito grande: focar no segmento relevante'] },
+  { cat: 'marketing', name: 'email-sequencia', desc: 'Cria sequencia de emails para onboarding ou vendas', input: 'Produto, objetivo e numero de emails', output: 'Sequencia com assunto, corpo e CTA de cada email',
+    triggers: ['cria sequencia de emails','emails de onboarding','sequencia de vendas','email drip','monta emails'],
+    negatives: ['NAO usar para newsletter recorrente','NAO usar para email transacional'],
+    examples: [{input:'Sequencia de 5 emails de onboarding pro Metricaas. Objetivo: ativar trial em 7 dias',output:'5 emails: boas-vindas, setup rapido, primeiro insight, feature avancada, upgrade CTA'},{input:'emails de vendas (sem contexto)',output:'Pergunta: Qual produto? Quantos emails? Qual objetivo da sequencia?'}],
+    edgeCases: ['Se > 10 emails: sugerir dividir em fases','Se sem CTA claro: adicionar CTA sugerido em cada email'] },
+  { cat: 'marketing', name: 'briefing-criativo', desc: 'Gera briefing para designer ou editor de video', input: 'Peca, objetivo e referencias', output: 'Briefing estruturado com contexto, formato, tom e referencias',
+    triggers: ['monta briefing','briefing pro designer','brief da peca','briefing criativo','brief pro editor'],
+    negatives: ['NAO usar para criar a peca final','NAO usar para aprovar pecas'],
+    examples: [{input:'Briefing de thumbnail YouTube: video sobre "Por que 90% dos micro-saas falham"',output:'Briefing: formato 1280x720, estilo dark, rosto + texto grande, referencia de thumbnails que performaram'},{input:'briefing (sem especificacao)',output:'Pergunta: Qual tipo de peca? Para qual plataforma?'}],
+    edgeCases: ['Se sem referencias: sugerir 3 estilos diferentes','Se multiplas pecas: gerar 1 briefing por peca'] },
+
+  // ─── Produtividade ────────────────────────────────────
+  { cat: 'produtividade', name: 'gerar-relatorio', desc: 'Gera relatorio semanal de metricas a partir de dados colados', input: 'Dados brutos (CSV, tabela, numeros)', output: 'Relatorio Markdown com resumo, metricas e insights',
+    triggers: ['gera relatorio','monta relatorio semanal','formata esses dados','relatorio de metricas','analisa esses numeros'],
+    negatives: ['NAO usar para dashboards visuais','NAO usar para importar dados de APIs'],
+    examples: [{input:'MRR: R$ 12.400, Churn: 3.2%, Novos: 18, Ticket: R$ 89',output:'Relatorio com resumo executivo, tabela, comparativo semanal, 3 insights'},{input:'(planilha mal formatada)',output:'Pergunta: Em qual formato estao os dados?'}],
+    edgeCases: ['Se dados incompletos: relatorio parcial + aviso','Se formato estranho: perguntar antes'] },
+  { cat: 'produtividade', name: 'ata-reuniao', desc: 'Gera ata de reuniao a partir de transcricao ou anotacoes', input: 'Transcricao ou anotacoes da reuniao', output: 'Ata com participantes, topicos, decisoes e proximos passos',
+    triggers: ['gera ata da reuniao','ata de reuniao','resume essa reuniao','monta ata','documenta a reuniao'],
+    negatives: ['NAO usar para agendar reunioes','NAO usar para enviar convites'],
+    examples: [{input:'(transcricao de reuniao de 30min sobre lancamento do novo produto)',output:'Ata: data, participantes, 4 topicos discutidos, 3 decisoes tomadas, 5 action items com responsaveis'},{input:'reuniao (sem conteudo)',output:'Pergunta: Cole a transcricao ou suas anotacoes da reuniao'}],
+    edgeCases: ['Se transcricao muito longa: resumir por topico','Se sem participantes identificados: pedir nomes'] },
+  { cat: 'produtividade', name: 'revisar-texto', desc: 'Revisa texto para clareza, gramatica e tom', input: 'Texto para revisao', output: 'Texto revisado + lista de mudancas feitas',
+    triggers: ['revisa esse texto','corrige esse texto','melhora a escrita','revisao gramatical','ajusta o tom'],
+    negatives: ['NAO usar para traduzir','NAO usar para reescrever do zero','NAO usar para gerar conteudo novo'],
+    examples: [{input:'(texto com erros de concordancia e frases longas)',output:'Texto corrigido + lista: 3 erros de concordancia, 2 frases simplificadas, 1 paragrafo reorganizado'},{input:'revisa (sem texto)',output:'Pergunta: Cole o texto que quer revisar'}],
+    edgeCases: ['Se texto em outro idioma: perguntar se revisa naquele idioma','Se tom nao especificado: manter o original'] },
+  { cat: 'produtividade', name: 'organizar-notion', desc: 'Estrutura paginas e databases no Notion', input: 'Descricao do que quer organizar', output: 'Estrutura de paginas, databases e templates sugeridos',
+    triggers: ['organiza meu notion','estrutura notion','monta notion','cria database notion','template notion'],
+    negatives: ['NAO usar para criar o conteudo das paginas','NAO usar para migrar dados'],
+    examples: [{input:'Organizar Notion para calendario editorial: 3 redes sociais, 5 posts/semana cada',output:'Database: Status, Plataforma, Data, Tipo, Autor. Views: Kanban por status, Calendario, Por plataforma'},{input:'notion (sem contexto)',output:'Pergunta: O que voce quer organizar no Notion?'}],
+    edgeCases: ['Se escopo muito grande: sugerir dividir em fases','Se Notion nao for a melhor ferramenta: sugerir alternativa'] },
+  { cat: 'produtividade', name: 'resumir-documento', desc: 'Resume documentos longos em pontos-chave', input: 'Documento, artigo ou PDF colado', output: 'Resumo com pontos-chave, dados importantes e conclusao',
+    triggers: ['resume esse documento','resumo desse texto','pontos principais','tl;dr','resume pra mim'],
+    negatives: ['NAO usar para traduzir','NAO usar para reescrever o documento'],
+    examples: [{input:'(artigo de 5000 palavras sobre tendencias de SaaS 2026)',output:'Resumo: 5 tendencias principais com dados, 3 oportunidades para micro-saas, conclusao em 1 paragrafo'},{input:'(contrato juridico)',output:'Resume clausulas principais + alerta: "Nao substitui analise juridica"'}],
+    edgeCases: ['Se documento > 50 paginas: pedir para colar as partes mais importantes','Se tecnico demais: simplificar jargao'] },
+
+  // ─── Financeiro ───────────────────────────────────────
+  { cat: 'financeiro', name: 'emitir-nota-fiscal', desc: 'Guia emissao de NFS-e no portal da prefeitura', input: 'Tomador (CNPJ), servico, valor', output: 'Nota fiscal emitida com PDF baixado',
+    triggers: ['emitir nota fiscal','emitir NF','gerar nota de servico','emitir NFS-e','preciso emitir uma nota'],
+    negatives: ['NAO usar para NF de produto (NF-e)','NAO usar para consultar notas','NAO usar para cancelar notas'],
+    examples: [{input:'NF para CNPJ 12.345.678/0001-90, consultoria, R$ 5.000',output:'Acessa portal, faz login, preenche dados, confirma, baixa PDF'},{input:'NF (sem dados)',output:'Pergunta: Preciso de CNPJ, servico e valor'}],
+    edgeCases: ['Se sessao expirada: relogar','Se CNPJ invalido: avisar','Se portal fora do ar: tentar em 30min'] },
+  { cat: 'financeiro', name: 'fluxo-caixa', desc: 'Analisa fluxo de caixa e projeta proximos meses', input: 'Receitas e despesas dos ultimos meses', output: 'Analise com projecao, alertas e sugestoes',
+    triggers: ['analisa fluxo de caixa','projecao financeira','como esta meu caixa','previsao de caixa','cash flow'],
+    negatives: ['NAO usar para contabilidade oficial','NAO usar para declaracao de imposto'],
+    examples: [{input:'Jan: +R$15k -R$12k, Fev: +R$18k -R$13k, Mar: +R$14k -R$15k',output:'Analise: margem caindo, Mar negativo. Projecao: se tendencia continuar, caixa zera em Jun. Sugestoes: cortar X, aumentar Y'},{input:'fluxo de caixa (sem dados)',output:'Pergunta: Cole receitas e despesas dos ultimos 3-6 meses'}],
+    edgeCases: ['Se dados de 1 mes so: avisar que projecao sera imprecisa','Se valores em USD e BRL: perguntar cambio'] },
+  { cat: 'financeiro', name: 'precificar-produto', desc: 'Ajuda a definir pricing de SaaS ou servico', input: 'Produto, custos, mercado-alvo e concorrentes', output: 'Sugestao de tiers com justificativa',
+    triggers: ['precificar meu saas','quanto cobrar','pricing do produto','define preco','tiers de preco'],
+    negatives: ['NAO usar para negociar com clientes','NAO usar para criar pagina de pricing'],
+    examples: [{input:'SaaS de metricas, custo R$ 2k/mes infra, concorrente cobra $49-199/mes, publico: micro-saas BR',output:'3 tiers sugeridos: Free (ate 1k MRR), Pro R$ 49 (ate 50k MRR), Business R$ 149. Justificativa baseada em valor + mercado'},{input:'quanto cobrar (sem contexto)',output:'Pergunta: Qual produto? Quais seus custos? Quem e o publico?'}],
+    edgeCases: ['Se mercado muito nichado: avisar que dados sao limitados','Se custos variáveis: pedir estimativa media'] },
+
+  // ─── Atendimento ──────────────────────────────────────
+  { cat: 'atendimento', name: 'responder-suporte', desc: 'Sugere respostas para tickets de suporte', input: 'Mensagem do cliente', output: 'Resposta empatica + solucao + proximos passos',
+    triggers: ['responde esse ticket','suporte pro cliente','como responder isso','resposta de suporte','ticket de suporte'],
+    negatives: ['NAO usar para criar FAQs','NAO usar para chatbot automatico'],
+    examples: [{input:'Cliente: "Estou tentando cancelar mas nao acho o botao"',output:'Resposta empatica + link direto para cancelamento + pergunta se pode ajudar com algo antes'},{input:'Cliente: "SEU PRODUTO E UMA PORCARIA"',output:'Resposta calma e empatica + pergunta o que aconteceu especificamente + oferta de resolver'}],
+    edgeCases: ['Se mensagem em outro idioma: responder no idioma do cliente','Se pedido de reembolso: seguir politica + oferecer alternativa'] },
+  { cat: 'atendimento', name: 'faq-generator', desc: 'Gera perguntas frequentes a partir de tickets ou produto', input: 'Descricao do produto ou historico de tickets', output: 'FAQ com 10-20 perguntas organizadas por categoria',
+    triggers: ['gera FAQ','cria perguntas frequentes','monta FAQ','FAQ do produto','perguntas e respostas'],
+    negatives: ['NAO usar para documentacao tecnica','NAO usar para politicas legais'],
+    examples: [{input:'Metricaas: SaaS de metricas. Duvidas comuns: como conectar Stripe, o que e MRR, como calcular churn',output:'FAQ com 15 perguntas em 4 categorias: Primeiros Passos, Metricas, Integracoes, Conta/Billing'},{input:'FAQ (sem contexto)',output:'Pergunta: Qual produto? Quais as duvidas mais comuns dos seus clientes?'}],
+    edgeCases: ['Se sem historico de tickets: gerar FAQ baseado no produto','Se muitas categorias: limitar a 5'] },
+  { cat: 'atendimento', name: 'onboarding-cliente', desc: 'Cria sequencia de onboarding para novos clientes', input: 'Produto e etapas de ativacao', output: 'Sequencia de mensagens/emails com timing e conteudo',
+    triggers: ['onboarding de cliente','sequencia de ativacao','boas vindas pro cliente','primeiro contato','jornada do cliente'],
+    negatives: ['NAO usar para onboarding de funcionario','NAO usar para criar o produto em si'],
+    examples: [{input:'Onboarding Metricaas: 1) conectar Stripe, 2) ver primeiro dashboard, 3) configurar alertas',output:'Dia 0: email boas-vindas + video 2min. Dia 1: "Ja conectou o Stripe?". Dia 3: "Veja seu primeiro insight". Dia 7: "Configure alertas"'},{input:'onboarding (sem produto)',output:'Pergunta: Qual produto? Quais sao as 3 acoes mais importantes do novo cliente?'}],
+    edgeCases: ['Se produto complexo: sugerir onboarding guiado (call)','Se self-serve: focar em emails + tooltips'] },
+
+  // ─── Dev ──────────────────────────────────────────────
+  { cat: 'dev', name: 'revisar-pr', desc: 'Revisa pull request e sugere melhorias', input: 'Diff do PR ou link', output: 'Review com bugs, sugestoes e aprovacao/rejeicao',
+    triggers: ['revisa esse PR','code review','analisa esse pull request','review do codigo','PR review'],
+    negatives: ['NAO usar para merge automatico','NAO usar para deploy'],
+    examples: [{input:'(diff com 200 linhas de um novo endpoint de API)',output:'Review: 2 bugs potenciais, 1 sugestao de performance, 3 melhorias de legibilidade. Status: Aprovar com sugestoes'},{input:'PR (sem diff)',output:'Pergunta: Cole o diff ou compartilhe o link do PR'}],
+    edgeCases: ['Se PR muito grande (>500 linhas): sugerir dividir','Se sem testes: apontar como blocker'] },
+  { cat: 'dev', name: 'gerar-testes', desc: 'Gera testes unitarios para funcao ou modulo', input: 'Codigo da funcao/modulo', output: 'Suite de testes com happy path, edge cases e mocks',
+    triggers: ['gera testes','escreve testes','testes unitarios','test suite','monta os testes'],
+    negatives: ['NAO usar para testes E2E','NAO usar para testes de performance'],
+    examples: [{input:'(funcao de calcular MRR a partir de lista de assinaturas)',output:'8 testes: lista vazia, 1 assinatura, multiplas, com churn, com upgrade, valores negativos, null input, tipo errado'},{input:'testes (sem codigo)',output:'Pergunta: Cole o codigo que quer testar'}],
+    edgeCases: ['Se funcao sem retorno: testar side effects','Se dependencia externa: sugerir mock'] },
+  { cat: 'dev', name: 'documentar-api', desc: 'Gera documentacao de API a partir de codigo', input: 'Codigo dos endpoints ou Swagger', output: 'Documentacao com endpoints, params, exemplos e erros',
+    triggers: ['documenta a API','gera docs','documentacao dos endpoints','API docs','swagger da API'],
+    negatives: ['NAO usar para gerar o codigo da API','NAO usar para testar endpoints'],
+    examples: [{input:'(3 endpoints Express: GET /users, POST /users, DELETE /users/:id)',output:'Documentacao: cada endpoint com metodo, URL, params, body, response 200, response 400/404, exemplo curl'},{input:'docs (sem codigo)',output:'Pergunta: Cole o codigo dos endpoints ou o Swagger'}],
+    edgeCases: ['Se muitos endpoints: organizar por recurso','Se sem tratamento de erro no codigo: documentar como TODO'] },
+  { cat: 'dev', name: 'debug-error', desc: 'Investiga e resolve erros a partir de log ou stack trace', input: 'Mensagem de erro, log ou stack trace', output: 'Causa raiz + solucao + como prevenir',
+    triggers: ['debug esse erro','o que esse erro significa','resolve esse bug','stack trace','por que ta dando erro'],
+    negatives: ['NAO usar para monitoramento continuo','NAO usar para alertas'],
+    examples: [{input:'TypeError: Cannot read properties of undefined (reading "map")',output:'Causa: variavel undefined antes do .map(). Solucao: verificar se existe antes (optional chaining ou guard clause). Prevencao: tipar com TypeScript'},{input:'(log de 500 linhas)',output:'Filtra linhas relevantes, identifica o erro principal, sugere fix'}],
+    edgeCases: ['Se erro ambiguo: pedir mais contexto (versao, framework)','Se log muito grande: pedir para filtrar antes'] },
+];
+
+let currentCat = 'all';
+
+function setCategory(cat) {
+  currentCat = cat;
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  filterSkills();
+}
+
+function filterSkills() {
+  const q = document.getElementById('search').value.toLowerCase();
+  const filtered = SKILLS.filter(s => {
+    const matchCat = currentCat === 'all' || s.cat === currentCat;
+    const matchSearch = !q || s.name.includes(q) || s.desc.toLowerCase().includes(q) || s.cat.includes(q);
+    return matchCat && matchSearch;
+  });
+
+  const grid = document.getElementById('grid');
+  const empty = document.getElementById('empty');
+  const count = document.getElementById('count');
+
+  count.textContent = filtered.length + ' skill' + (filtered.length !== 1 ? 's' : '');
+
+  if (filtered.length === 0) {
+    grid.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+
+  empty.style.display = 'none';
+  grid.innerHTML = filtered.map((s, i) => `
+    <div class="skill-card" onclick="useSkill(${SKILLS.indexOf(s)})">
+      <div class="card-cat ${s.cat}">${s.cat}</div>
+      <h3>${s.name}</h3>
+      <p>${s.desc}</p>
+      <div class="card-io">
+        <span>Input:</span> ${s.input}<br>
+        <span>Output:</span> ${s.output}
+      </div>
+      <div class="use-btn">Usar no Wizard</div>
+    </div>
+  `).join('');
+}
+
+function useSkill(index) {
+  const s = SKILLS[index];
+  const data = encodeURIComponent(JSON.stringify(s));
+  window.location.href = 'wizard.html?template=' + data;
+}
+
+filterSkills();
+</script>
+</body>
+</html>
