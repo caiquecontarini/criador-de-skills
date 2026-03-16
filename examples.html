@@ -53,11 +53,11 @@
   /* Search + Filter */
   .controls { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
   .search-box {
-    flex: 1; min-width: 200px; background: var(--surface);
+    width: 100%; background: var(--surface);
     border: 1px solid var(--border); border-radius: 10px;
     color: var(--text); font-family: 'Inter', sans-serif;
     font-size: 14px; padding: 12px 16px; outline: none;
-    transition: border-color 0.2s;
+    transition: border-color 0.2s; margin-bottom: 16px;
   }
   .search-box:focus { border-color: var(--accent); }
   .search-box::placeholder { color: #484f58; }
