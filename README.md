@@ -42,7 +42,17 @@ Copie o conteúdo de `prompt-instalacao.md` e envie para o seu agente no Telegra
 
 ## Como usar
 
-### 3 formas de criar uma skill
+### Wizard visual (recomendado para começar)
+
+Após instalar, o wizard abre automaticamente no browser. Se precisar abrir de novo:
+
+```bash
+open ~/.claude/skills/criar-skill/wizard.html
+```
+
+O wizard guia você por 4 passos e gera o SKILL.md + evals.json prontos para copiar. Também tem uma [biblioteca com 24 exemplos de skills](examples.html) para usar como base.
+
+### 3 formas de criar uma skill (via agente)
 
 **Modo 1 — Capturar o que você acabou de fazer**
 

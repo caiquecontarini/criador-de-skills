@@ -167,11 +167,30 @@ if [ "$OPENCLAW" = true ]; then
   echo ""
 fi
 
+# ── Wizard ───────────────────────────────────────────────────────────────────
+
+WIZARD_URL="https://raw.githubusercontent.com/okjpg/skill-creator/main/wizard.html"
+EXAMPLES_URL="https://raw.githubusercontent.com/okjpg/skill-creator/main/examples.html"
+WIZARD_PATH="$HOME/.claude/skills/$SKILL_NAME/wizard.html"
+EXAMPLES_PATH="$HOME/.claude/skills/$SKILL_NAME/examples.html"
+
+echo "Baixando wizard visual..."
+download "$WIZARD_URL" "$WIZARD_PATH"
+download "$EXAMPLES_URL" "$EXAMPLES_PATH"
+
+# Try to open wizard in browser
+if command -v open &>/dev/null; then
+  open "$WIZARD_PATH" 2>/dev/null
+elif command -v xdg-open &>/dev/null; then
+  xdg-open "$WIZARD_PATH" 2>/dev/null
+fi
+
 # ── Concluído ────────────────────────────────────────────────────────────────
 
 echo "────────────────────────────────"
 ok "Instalação concluída."
 echo ""
-echo "  Próximo passo: abra seu agente e digite /criar-skill"
+echo "  Wizard visual: abra wizard.html no browser para criar skills"
+echo "  Via agente: digite /criar-skill no Claude Code ou OpenClaw"
 echo "  Documentação: https://github.com/okjpg/skill-creator"
 echo ""

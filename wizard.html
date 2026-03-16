@@ -700,7 +700,37 @@ function goTo(step) {
   currentStep = step;
   // Hide templates after step 0
   document.getElementById('templates-bar').style.display = step === 0 ? 'block' : 'none';
+  // Update dynamic placeholders when entering examples step
+  if (step === 2) updateExamplePlaceholders();
   window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function updateExamplePlaceholders() {
+  const name = document.getElementById('skillName').value.trim();
+  const input = document.getElementById('skillInput').value.trim();
+  const output = document.getElementById('skillOutput').value.trim();
+
+  // Only update empty fields (don't overwrite user data)
+  const pairs = document.querySelectorAll('#examplesList .eval-pair');
+  pairs.forEach((pair, i) => {
+    const inputEl = pair.querySelector('.eval-input');
+    const outputEl = pair.querySelector('.eval-output');
+
+    if (input && !inputEl.value) {
+      if (i === 0) {
+        inputEl.placeholder = `Ex: Um ${input.toLowerCase()} típico que o usuário enviaria`;
+      } else {
+        inputEl.placeholder = `Ex: Um ${input.toLowerCase()} com problema (incompleto, formato errado, vazio)`;
+      }
+    }
+    if (output && !outputEl.value) {
+      if (i === 0) {
+        outputEl.placeholder = `Ex: ${output}`;
+      } else {
+        outputEl.placeholder = `Ex: Identifica o problema e pede correção ao usuário`;
+      }
+    }
+  });
 }
 
 function addRow(listId, placeholder) {
