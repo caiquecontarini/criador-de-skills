@@ -144,8 +144,11 @@ Guia completo: `references/guia-refinamento.md`
 skill-creator/
 ├── SKILL.md                        # A skill em si (instalar aqui)
 ├── wizard.html                     # Wizard visual (abrir no browser)
+├── examples.html                   # Biblioteca com 24 exemplos de skills
+├── bruno-photo.jpeg                # Foto do autor
 ├── README.md                       # Este arquivo
 ├── LICENSE                         # MIT
+├── install.sh                      # Instalador automático
 ├── prompt-instalacao.md            # Prompt para configurar via agente
 ├── evals/
 │   └── evals.json                  # Casos de teste do próprio skill-creator

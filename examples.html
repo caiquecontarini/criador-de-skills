@@ -354,7 +354,7 @@ function filterSkills() {
   empty.style.display = 'none';
   grid.innerHTML = filtered.map((s, i) => `
     <div class="skill-card" onclick="useSkill(${SKILLS.indexOf(s)})">
-      <div class="card-cat ${s.cat}">${s.cat}</div>
+      <div class="card-cat ${s.cat}">${({conteudo:'Conteúdo',marketing:'Marketing',produtividade:'Produtividade',financeiro:'Financeiro',atendimento:'Atendimento',dev:'Dev'})[s.cat]||s.cat}</div>
       <h3>${s.name}</h3>
       <p>${s.desc}</p>
       <div class="card-io">
