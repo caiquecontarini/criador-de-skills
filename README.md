@@ -1,21 +1,21 @@
-# skill-creator
+﻿# skill-creator
 
 Uma skill para Claude Code e agentes de IA que cria outras skills automaticamente.
 
-Você descreve um processo. O agente transforma em uma skill estruturada, passa por QA automático, e faz o deploy em `~/.claude/skills/` — pronta para usar.
+VocÃª descreve um processo. O agente transforma em uma skill estruturada, passa por QA automÃ¡tico, e faz o deploy em `~/.claude/skills/` â€” pronta para usar.
 
 ---
 
-## O que é uma skill?
+## O que Ã© uma skill?
 
-Uma skill é um arquivo de instrução (SKILL.md) que você coloca no Claude Code para automatizar tarefas repetitivas. Em vez de explicar o que fazer toda vez, você escreve uma vez e o Claude executa sempre que você acionar.
+Uma skill Ã© um arquivo de instruÃ§Ã£o (SKILL.md) que vocÃª coloca no Claude Code para automatizar tarefas repetitivas. Em vez de explicar o que fazer toda vez, vocÃª escreve uma vez e o Claude executa sempre que vocÃª acionar.
 
-Exemplos de skills que você pode criar com esse repositório:
-- Skill de geração de posts LinkedIn a partir de vídeos
-- Skill de emissão de notas fiscais
-- Skill de análise de concorrentes
-- Skill de responder comentários com seu tom de voz
-- Qualquer processo que você repete toda semana
+Exemplos de skills que vocÃª pode criar com esse repositÃ³rio:
+- Skill de geraÃ§Ã£o de posts LinkedIn a partir de vÃ­deos
+- Skill de emissÃ£o de notas fiscais
+- Skill de anÃ¡lise de concorrentes
+- Skill de responder comentÃ¡rios com seu tom de voz
+- Qualquer processo que vocÃª repete toda semana
 
 ---
 
@@ -27,80 +27,80 @@ Exemplos de skills que você pode criar com esse repositório:
 curl -fsSL https://raw.githubusercontent.com/okjpg/skill-creator/main/install.sh | bash
 ```
 
-O script detecta automaticamente se você tem Claude Code, OpenClaw, ou ambos — e instala em todos os ambientes encontrados.
+O script detecta automaticamente se vocÃª tem Claude Code, OpenClaw, ou ambos â€” e instala em todos os ambientes encontrados.
 
-Depois da instalação, abra seu agente e digite:
+Depois da instalaÃ§Ã£o, abra seu agente e digite:
 ```
 /criar-skill
 ```
 
 ### Telegram (via agente de IA)
 
-Copie o conteúdo de `prompt-instalacao.md` e envie para o seu agente no Telegram. O agente vai executar a instalação automaticamente.
+Copie o conteÃºdo de `prompt-instalacao.md` e envie para o seu agente no Telegram. O agente vai executar a instalaÃ§Ã£o automaticamente.
 
 ---
 
 ## Como usar
 
-### Wizard visual (recomendado para começar)
+### Wizard visual (recomendado para comeÃ§ar)
 
-Após instalar, o wizard abre automaticamente no browser. Se precisar abrir de novo:
+ApÃ³s instalar, o wizard abre automaticamente no browser. Se precisar abrir de novo:
 
 ```bash
 open ~/.claude/skills/criar-skill/wizard.html
 ```
 
-O wizard guia você por 4 passos e gera o SKILL.md + evals.json prontos para copiar. Também tem uma [biblioteca com 24 exemplos de skills](examples.html) para usar como base.
+O wizard guia vocÃª por 4 passos e gera o SKILL.md + evals.json prontos para copiar. TambÃ©m tem uma [biblioteca com 24 exemplos de skills](examples.html) para usar como base.
 
 ### 3 formas de criar uma skill (via agente)
 
-**Modo 1 — Capturar o que você acabou de fazer**
+**Modo 1 â€” Capturar o que vocÃª acabou de fazer**
 
-Você acabou de executar um processo no Claude. Digita:
+VocÃª acabou de executar um processo no Claude. Digita:
 ```
 /criar-skill
 ```
-O agente lê o histórico da sessão, identifica os passos, e gera a skill automaticamente.
+O agente lÃª o histÃ³rico da sessÃ£o, identifica os passos, e gera a skill automaticamente.
 
-**Modo 2 — Colar um workflow existente**
+**Modo 2 â€” Colar um workflow existente**
 
-Você tem um processo descrito em texto (notas, Notion, papel). Cola no chat:
+VocÃª tem um processo descrito em texto (notas, Notion, papel). Cola no chat:
 ```
 /criar-skill
 
-Todo dia eu: 1) acesso o painel, 2) exporto o relatório, 3) formato e mando por email
+Todo dia eu: 1) acesso o painel, 2) exporto o relatÃ³rio, 3) formato e mando por email
 ```
 O agente extrai os passos e gera a skill.
 
-**Modo 3 — Descrever uma ideia**
+**Modo 3 â€” Descrever uma ideia**
 
-Você tem uma ideia vaga do que quer automatizar:
+VocÃª tem uma ideia vaga do que quer automatizar:
 ```
-/criar-skill quero algo que me ajude a responder comentários no Instagram
+/criar-skill quero algo que me ajude a responder comentÃ¡rios no Instagram
 ```
-O agente faz perguntas para entender o que entra, o que sai, e como é um resultado perfeito. Depois gera.
+O agente faz perguntas para entender o que entra, o que sai, e como Ã© um resultado perfeito. Depois gera.
 
 ---
 
-## O que acontece depois que você digita /criar-skill
+## O que acontece depois que vocÃª digita /criar-skill
 
 ```
-Você descreve →  Claude estrutura o workflow
-                    ↓
-              QA automático (10 checks)
-                    ↓
-              Você revisa e aprova
-                    ↓
+VocÃª descreve â†’  Claude estrutura o workflow
+                    â†“
+              QA automÃ¡tico (10 checks)
+                    â†“
+              VocÃª revisa e aprova
+                    â†“
               Deploy em ~/.claude/skills/
               (SKILL.md + evals/evals.json)
-                    ↓
+                    â†“
               Skill pronta para usar
 ```
 
-O QA automático verifica:
+O QA automÃ¡tico verifica:
 - Nome no formato correto (kebab-case)
-- Descrição com triggers suficientes para o Claude entender quando ativar
-- Cada passo do workflow é claro e imperativo
+- DescriÃ§Ã£o com triggers suficientes para o Claude entender quando ativar
+- Cada passo do workflow Ã© claro e imperativo
 - Exemplos reais de input e output
 - Edge cases cobertos
 - Sem credenciais expostas no arquivo
@@ -110,51 +110,51 @@ O QA automático verifica:
 
 ## Estrutura de uma skill gerada
 
-Toda skill criada pelo `/criar-skill` gera no mínimo:
+Toda skill criada pelo `/criar-skill` gera no mÃ­nimo:
 
 ```
 skill-name/
-├── SKILL.md              # Workflow, regras, edge cases
-└── evals/
-    └── evals.json        # Casos de teste (prompt + expected_output)
+â”œâ”€â”€ SKILL.md              # Workflow, regras, edge cases
+â””â”€â”€ evals/
+    â””â”€â”€ evals.json        # Casos de teste (prompt + expected_output)
 ```
 
-O `evals.json` permite testar se a skill está funcionando corretamente após refinamentos e serve como documentação de uso para quem instalar a skill.
+O `evals.json` permite testar se a skill estÃ¡ funcionando corretamente apÃ³s refinamentos e serve como documentaÃ§Ã£o de uso para quem instalar a skill.
 
-Opcionais (quando necessário):
-- `references/` — docs de apoio, specs, guias de estilo
-- `scripts/` — código executável (ex: geração de imagem, PDF)
-- `assets/` — fontes, templates, arquivos estáticos
+Opcionais (quando necessÃ¡rio):
+- `references/` â€” docs de apoio, specs, guias de estilo
+- `scripts/` â€” cÃ³digo executÃ¡vel (ex: geraÃ§Ã£o de imagem, PDF)
+- `assets/` â€” fontes, templates, arquivos estÃ¡ticos
 
 ---
 
-## Skills não saem perfeitas na primeira vez
+## Skills nÃ£o saem perfeitas na primeira vez
 
-Isso é esperado e normal.
+Isso Ã© esperado e normal.
 
-Depois do deploy, rode a skill com um input real. Quando algo sair errado, identifique a causa e corrija a instrução no SKILL.md. Skills melhoram com uso — cada refinamento que você documenta torna a skill mais robusta para sempre.
+Depois do deploy, rode a skill com um input real. Quando algo sair errado, identifique a causa e corrija a instruÃ§Ã£o no SKILL.md. Skills melhoram com uso â€” cada refinamento que vocÃª documenta torna a skill mais robusta para sempre.
 
 Guia completo: `references/guia-refinamento.md`
 
 ---
 
-## Estrutura do repositório
+## Estrutura do repositÃ³rio
 
 ```
 skill-creator/
-├── SKILL.md                        # A skill em si (instalar aqui)
-├── wizard.html                     # Wizard visual (abrir no browser)
-├── examples.html                   # Biblioteca com 24 exemplos de skills
-├── bruno-photo.jpeg                # Foto do autor
-├── README.md                       # Este arquivo
-├── LICENSE                         # MIT
-├── install.sh                      # Instalador automático
-├── prompt-instalacao.md            # Prompt para configurar via agente
-├── evals/
-│   └── evals.json                  # Casos de teste do próprio skill-creator
-└── references/
-    ├── skill-anatomy.md            # Template de anatomia de uma skill
-    └── guia-refinamento.md         # Guia de refinamento pós-deploy
+â”œâ”€â”€ SKILL.md                        # A skill em si (instalar aqui)
+â”œâ”€â”€ wizard.html                     # Wizard visual (abrir no browser)
+â”œâ”€â”€ examples.html                   # Biblioteca com 24 exemplos de skills
+â”œâ”€â”€ bruno-photo.jpeg                # Foto do autor
+â”œâ”€â”€ README.md                       # Este arquivo
+â”œâ”€â”€ LICENSE                         # MIT
+â”œâ”€â”€ install.sh                      # Instalador automÃ¡tico
+â”œâ”€â”€ prompt-instalacao.md            # Prompt para configurar via agente
+â”œâ”€â”€ evals/
+â”‚   â””â”€â”€ evals.json                  # Casos de teste do prÃ³prio skill-creator
+â””â”€â”€ references/
+    â”œâ”€â”€ skill-anatomy.md            # Template de anatomia de uma skill
+    â””â”€â”€ guia-refinamento.md         # Guia de refinamento pÃ³s-deploy
 ```
 
 ### Wizard visual
@@ -165,7 +165,7 @@ Se preferir uma interface visual, abra o `wizard.html` no browser:
 open wizard.html
 ```
 
-O wizard guia você por 4 passos e gera o SKILL.md + evals.json prontos para copiar ou baixar. Funciona 100% offline, sem servidor.
+O wizard guia vocÃª por 4 passos e gera o SKILL.md + evals.json prontos para copiar ou baixar. Funciona 100% offline, sem servidor.
 
 ---
 
@@ -179,6 +179,10 @@ O wizard guia você por 4 passos e gera o SKILL.md + evals.json prontos para cop
 
 ## Feito por
 
-Bruno Okamoto · SaaS, IA & Empreendedorismo
+Bruno Okamoto Â· SaaS, IA & Empreendedorismo
 
-[LinkedIn](https://linkedin.com/in/obrunookamoto) · [YouTube](https://youtube.com/@obrunookamoto) · [Instagram](https://instagram.com/obrunookamoto)
+[LinkedIn](https://linkedin.com/in/obrunookamoto) Â· [YouTube](https://youtube.com/@obrunookamoto) Â· [Instagram](https://instagram.com/obrunookamoto)
+
+
+---
+*Créditos originais da metodologia: [Bruno Okamoto](https://github.com/okjpg)*
